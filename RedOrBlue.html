@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RedOrBlue - Drug Information</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      background: linear-gradient(to right, red, blue); /* Background gradient from red to blue */
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      position: relative;
     }
 
-    /* Container to center content */
+    /* Fullscreen background image */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('background.png') no-repeat center center;
+      background-size: cover;
+      z-index: -1;
+    }
+
     .container {
-      background-color: rgba(0, 0, 0, 0.5); /* Dark transparent background for readability */
+      background-color: rgba(0, 0, 0, 0.5);
       padding: 20px;
       border-radius: 10px;
       width: 80%;
       max-width: 600px;
-      z-index: 2;
       text-align: center;
-    }
-
-    h1 {
-      color: #fff;
+      z-index: 1;
     }
 
     .input-container {
@@ -42,11 +56,10 @@
       color: #fff;
     }
 
-    /* Increase size of the input box */
     #drugQuestion {
       width: 100%;
-      height: 60px; /* Increased height */
-      font-size: 18px; /* Larger text inside the box */
+      height: 60px;
+      font-size: 18px;
       padding: 10px;
       border-radius: 8px;
       border: 2px solid #fff;
@@ -67,6 +80,10 @@
       border-radius: 0;
     }
 
+    .oval {
+      border-radius: 50% / 30%;
+    }
+
     .result-container {
       margin-top: 30px;
       padding: 20px;
@@ -75,40 +92,34 @@
       color: #333;
     }
 
-    .result-container h3 {
-      color: #333;
-    }
-
-    /* Styling for hands on both sides */
     .hand-left, .hand-right {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       width: 150px;
       height: 150px;
-      z-index: 1;
+      z-index: 0;
       opacity: 0.6;
+      background-image: url('ChatGPT Image.png');
+      background-size: cover;
+      background-position: center;
     }
 
     .hand-left {
       left: 0;
-      background-image: 'ChatGPT Image.png';
-      background-size: cover;
-      background-position: center;
     }
 
     .hand-right {
       right: 0;
-      background-image: 'ChatGPT Image.png';
-      background-size: cover;
-      background-position: center;
     }
-
   </style>
 </head>
 <body>
 
-  <div class="hand-left"></div> <!-- Left hand -->
+  <div class="background"></div> <!-- The full-page background image -->
+
+  <div class="hand-left"></div>
+
   <div class="container">
     <h1>Welcome to RedOrBlue</h1>
     <p>Find out more about the drugs you care about. Ask a question and select drug properties.</p>
@@ -129,8 +140,8 @@
       <label for="circle">Circle</label>
       <input type="radio" id="square" name="shape" value="square" />
       <label for="square">Square</label>
-      <input type="radio" id="Oval" name="Oval" value="Oval" />
-      <label for="Oval">Oval</label>
+      <input type="radio" id="oval" name="shape" value="oval" />
+      <label for="oval">Oval</label>
     </div>
 
     <button onclick="generateResponse()">Submit</button>
@@ -143,21 +154,19 @@
       <div id="shapePreview" class="shape circle"></div>
     </div>
   </div>
-  <div class="hand-right"></div> <!-- Right hand -->
+
+  <div class="hand-right"></div>
 
   <script>
     function generateResponse() {
-      // Get the user input
       const question = document.getElementById('drugQuestion').value;
       const color = document.getElementById('drugColor').value;
       const shape = document.querySelector('input[name="shape"]:checked').value;
 
-      // Set the result text
       document.getElementById('resultQuestion').innerText = question;
       document.getElementById('resultColor').innerText = color;
       document.getElementById('resultShape').innerText = shape;
 
-      // Set the shape and color preview
       const shapePreview = document.getElementById('shapePreview');
       shapePreview.style.backgroundColor = color;
       shapePreview.className = 'shape ' + shape;
