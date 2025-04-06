@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drug Symptom Checklist</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .checkbox-group {
+      margin-bottom: 20px;
+    }
+
+    .checkbox-group label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Drug Symptom Checklist</h1>
+    <form id="symptomForm">
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="symptom" value="Anxiety"> Anxiety</label>
+        <label><input type="checkbox" name="symptom" value="Nausea"> Nausea</label>
+        <label><input type="checkbox" name="symptom" value="Eye Lash Loss">Eye Lash Loss</label>
+        <label><input type="checkbox" name="symptom" value="Anxiety">Anxiety</label>
+        <label><input type="checkbox" name="symptom" value="Cancer">Cancer</label>
+        <label><input type="checkbox" name="symptom" value="Weight Gain"> Weight Gain</label>
+        <label><input type="checkbox" name="symptom" value="Headache"> Headache</label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('symptomForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const selected = Array.from(document.querySelectorAll('input[name="symptom"]:checked'))
+        .map(checkbox => checkbox.value);
+
+      // Save to localStorage (or you could use URL params)
+      localStorage.setItem('selectedSymptoms', JSON.stringify(selected));
+
+      // Redirect to the RedOrBlue page
+      window.location.href = 'redorblue.html'; // Change this to your actual page file name
+    });
+  </script>
+
+</body>
+</html>
