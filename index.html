@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Pill Feedback - Choose Role</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: url('ChatGPTImage.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-direction: column;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 40px 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 30px;
+    }
+
+    .role-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .role-buttons button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #00c4ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .role-buttons button:hover {
+      background-color: #0099cc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Red Pill Feedback</h1>
+    <p>Please select your role to continue:</p>
+    <div class="role-buttons">
+      <button onclick="goToPharmacist()">Pharmacist</button>
+      <button onclick="goToDoctor()">Doctor</button>
+    </div>
+  </div>
+
+  <script>
+    function goToPharmacist() {
+      window.location.href = 'redorblue.html'; // Replace with the correct file name/path
+    }
+
+    function goToDoctor() {
+      alert('Doctor workflow coming soon!');
+      // Future redirect: window.location.href = 'doctor.html';
+    }
+  </script>
+</body>
+</html>

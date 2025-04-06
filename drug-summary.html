@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Pill Summary</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: url('ChatGPTImage.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-direction: column;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .drug-list {
+      margin-top: 20px;
+    }
+
+    .drug-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .drug-name {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .download-button {
+      background-color: #00c4ff;
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .download-button:hover {
+      background-color: #0099cc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Your Added Drugs</h1>
+    <div class="drug-list">
+      <!-- Sample drug entries; you can make these dynamic -->
+      <div class="drug-item">
+        <span class="drug-name">Adderall</span>
+        <button class="download-button" onclick="downloadDrug('Adderall')">Download</button>
+      </div>
+      <div class="drug-item">
+        <span class="drug-name">Zoloft</span>
+        <button class="download-button" onclick="downloadDrug('Zoloft')">Download</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function downloadDrug(drugName) {
+      // Simulate a file download (you can adapt this to serve files from backend)
+      const data = `Drug Info for: ${drugName}`;
+      const blob = new Blob([data], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${drugName}-info.txt`;
+      link.click();
+    }
+  </script>
+
+</body>
+</html>

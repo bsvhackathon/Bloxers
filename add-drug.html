@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add a Drug</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add a Drug</h1>
+    <p>Enter the name of a drug you want to evaluate.</p>
+    <input type="text" id="drugName" placeholder="e.g., Ibuprofen" required />
+    <button onclick="goToSymptoms()">Next</button>
+  </div>
+
+  <script>
+    function goToSymptoms() {
+      const name = document.getElementById('drugName').value.trim();
+      if (name === '') {
+        alert('Please enter a drug name.');
+        return;
+      }
+
+      localStorage.setItem('currentDrug', name);
+      window.location.href = 'select-symptoms.html';
+    }
+  </script>
+</body>
+</html>

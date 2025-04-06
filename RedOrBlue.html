@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Pill Feedback</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: url('ChatGPTImage.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      flex-direction: column;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .input-container {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #fff;
+    }
+
+    #drugQuestion, #description, #doctorQuestion {
+      width: 50%;
+      height: 60px;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #fff;
+      box-sizing: border-box;
+    }
+
+    #description {
+      height: 150px;
+    }
+
+    #reward, #funds {
+      height: 25px;
+      min-width: 60px;
+      font-size: 18px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 2px solid #fff;
+      background-color: transparent;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #00c4ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0099cc;
+    }
+
+    body.loading {
+      cursor: progress;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome to Red Pill Feedback</h1>
+    <p>Find out more about the drugs you care about. Ask a question and select drug properties.</p>
+
+    <div class="input-container">
+      <label for="drugQuestion">Enter the name of a drug:</label><br>
+      <input type="text" id="drugQuestion" placeholder="Enter the name of a drug..." />
+    </div>
+
+    <div class="input-container">
+      <label for="description">Enter a description of the drug:</label><br>
+      <input type="text" id="description" placeholder="Enter a description of the drug..." />
+    </div>
+
+    <div class="input-container">
+      <label for="doctorQuestion">Enter wallet address for an approved doctor:</label><br>
+      <input type="text" id="doctorQuestion" placeholder="Enter a wallet address..." />
+    </div>
+
+    <label for="reward">Enter a reward amount:</label><br>
+    <input type="number" id="reward" placeholder="Enter a reward fee..." step="0.01" min="0.01" value="0.01"/><br><br>
+
+    <label for="funds">Enter funds to allocate:</label><br>
+    <input type="number" id="funds" placeholder="Enter funds to allocate..." step="0.01" min="0.01" value="0.01"/><br><br>
+
+    <button onclick="submitForm()">Submit</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@pushdrop/sdk@latest/dist/pushdrop.min.js"></script>
+  <script>
+    const { WalletClient, PushDrop, Utils } = PushDropSDK;
+    async function submitForm() {
+      const createTask = document.getElementById('drugQuestion').value.trim();
+      const createAmount = Number(document.getElementById('reward').value);
+      const description = document.getElementById('description').value.trim();
+      const wallet = document.getElementById('doctorQuestion').value.trim();
+
+      if (createTask === '') {
+        alert('Enter the name of the drug!');
+        return;
+      }
+
+      if (createAmount === 0 || isNaN(createAmount)) {
+        alert('Enter a valid reward amount!');
+        return;
+      }
+
+      if (createAmount < 1) {
+        alert('The reward must be more than 1 satoshi!');
+        return;
+      }
+
+      document.body.classList.add('loading');
+
+      try {
+        const walletClient = new WalletClient('json-api', 'non-admin.com');
+
+        const encrypted = await walletClient.encrypt({
+          plaintext: Utils.toArray(createTask, 'utf8'),
+          protocolID: [0, 'redpill feedback'],
+          keyID: '1'
+        });
+
+        const encryptedTask = encrypted.ciphertext;
+
+        const pushdrop = new PushDrop(walletClient);
+        const bitcoinOutputScript = await pushdrop.lock(
+          [
+            Utils.toArray('REDPILL_PROTO_ADDR', 'utf8'),
+            encryptedTask
+          ],
+          [0, 'redpill feedback'],
+          '1',
+          'self'
+        );
+
+        const action = await walletClient.createAction({
+          outputs: [{
+            lockingScript: bitcoinOutputScript.toHex(),
+            satoshis: createAmount,
+            basket: 'drug feedback',
+            outputDescription: 'New Drug Feedback Task'
+          }],
+          options: {
+            randomizeOutputs: false,
+            acceptDelayedBroadcast: false
+          },
+          description: `Drug task: ${createTask}`
+        });
+
+        alert('Feedback task successfully created!');
+
+        // Save values to localStorage
+        localStorage.setItem('drugName', createTask);
+        localStorage.setItem('drugDescription', description);
+        localStorage.setItem('doctorWallet', wallet);
+        localStorage.setItem('rewardFee', createAmount);
+        localStorage.setItem('outpoint', `${action.txid}.0`);
+
+        // Redirect to the summary page
+        window.location.href = 'drug-summary.html';
+
+      } catch (err) {
+        alert(err.message);
+        console.error(err);
+      } finally {
+        document.body.classList.remove('loading');
+      }
+    }
+  </script>
+</body>
+</html>
