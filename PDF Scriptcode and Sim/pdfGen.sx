@@ -1,0 +1,78 @@
+// pdfGen.sx
+import "std.sxLib"
+import "pdfGen.sxLib"
+
+
+.companyName
+.companyAddress
+.currentDate
+.respondees
+.medicine
+.symptom1
+.symptom1Positive
+.symptom1Negative
+.symptom1Percent
+.symptom2
+.symptom2Positive
+.symptom2Negative
+.symptom2Percent
+.symptom3
+.symptom3Positive
+.symptom3Negative
+.symptom3Percent
+.symptom4
+.symptom4Positive
+.symptom4Negative
+.symptom4Percent
+
+|
+repeat 20n toAltStack end
+
+chunk1 redPill cat
+chunk2 cat
+swap cat // companyName
+chunk3 cat
+fromAltStack cat // companyAddress
+chunk4 cat
+fromAltStack cat // currentDate
+chunk5 cat
+fromAltStack cat // qtyRespondees
+chunk6 cat
+fromAltStack cat // medicationAndDescription
+chunk7 cat
+fromAltStack cat // symptom1
+chunk8 cat
+fromAltStack cat // symptom1Positive
+chunk9 cat
+fromAltStack cat // symptom1Negative
+chunk10 cat
+fromAltStack cat // symptom1Percent
+chunk11 cat
+fromAltStack cat // symptom2
+chunk12 cat
+fromAltStack cat // symptom2Positive
+chunk13 cat
+fromAltStack cat // symptom2Negative
+chunk14 cat
+fromAltStack cat // symptom2Percent
+chunk15 cat
+fromAltStack cat // symptom3
+chunk16 cat
+fromAltStack cat // symptom3Positive
+chunk17 cat
+fromAltStack cat // symptom3Negative
+chunk18 cat
+fromAltStack cat // symptom3Percent
+chunk19 cat
+fromAltStack cat // symptom4
+chunk20 cat
+fromAltStack cat // symptom4Positive
+chunk21 cat
+fromAltStack cat // symptom4Negative
+chunk22 cat
+fromAltStack cat // symptom4Percent
+chunk23 cat
+avery cat // pFizzer
+chunk24 cat
+dup hash256
+

@@ -1,0 +1,43 @@
+[
+  {
+    "name": "mintTx_tkn",
+    "vouts": [
+      {
+        "type": "pdfGen",
+        "sats": 1000
+      }
+    ]
+  },
+  {
+    "name": "createPdf",
+    "vins": [
+      {
+        "tx": 0,
+        "vout": 0,
+        "args": {
+          "companyName": "417665727920436f736d6574696373",
+          "companyAddress": "383820547265626c6520636f7572742c2044656c6177617265",
+          "currentDate": "326e6420417072696c2032303235",
+          "respondees": "35",
+          "medicine": "526566756c6578202d2044656d656e74696120726576657273616c2074726561746d656e74",
+          "symptom1": "4c6f7373206f66207461737465",
+          "symptom1Positive": "33",
+          "symptom1Negative": "32",
+          "symptom1Percent": "36302e303025",
+          "symptom2": "496d70726f766564206579657369676874",
+          "symptom2Positive": "32",
+          "symptom2Negative": "33",
+          "symptom2Percent": "34302e303025",
+          "symptom3": "416e7869657479",
+          "symptom3Positive": "33",
+          "symptom3Negative": "32",
+          "symptom3Percent": "36302e303025",
+          "symptom4": "496d70726f7665642061706574697465",
+          "symptom4Positive": "31",
+          "symptom4Negative": "34",
+          "symptom4Percent": "32302e303025"
+        }
+      }
+    ]
+  }
+]
